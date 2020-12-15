@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
 import HomeScreen from './screens/HomeScreen';
 import PostScreen from './screens/PostScreen';
+import NewsFeed from './screens/NewsFeed';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
+          <Route path='/newsfeed' component={NewsFeed} />
           <Route path='/' component={HomeScreen} exact />
           <Route path='/post/:id' component={PostScreen} />
         </Container>

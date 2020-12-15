@@ -5,11 +5,14 @@ const colors = require('colors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 
-const PORT = process.env.PORT || 9000;
+const postRoutes = require('./routes/postRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+const PORT = process.env.PORT || 4000;
 const dbConnect = require('./config/db');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 dotenv.config();
-
 dbConnect();
 
 if (process.env.NODE_ENV === 'development') {
@@ -21,5 +24,12 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('backend server is working');
 });
+
+app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
+
+app.use(notFound);
+
+app.use(errorHandler);
 
 app.listen(PORT, console.log('listening on port:' + PORT));
