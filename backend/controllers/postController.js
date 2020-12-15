@@ -6,7 +6,9 @@ const asyncHandler = require('express-async-handler');
 //@PUBLIC
 
 const getPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find();
+  const pageSize = 10;
+
+  const posts = await Post.find().limit(pageSize);
 
   res.json(posts);
 });

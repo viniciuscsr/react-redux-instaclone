@@ -9,7 +9,7 @@ const Header = () => {
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-              <i class='fab fa-instagram'></i> InstaClone
+              <i className='fab fa-instagram'></i> InstaClone
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -22,12 +22,12 @@ const Header = () => {
             <Nav className='ml-auto'>
               <LinkContainer to='/login'>
                 <Nav.Link>
-                  <i class='fas fa-sign-in-alt'></i> Login
+                  <i className='fas fa-sign-in-alt'></i> Login
                 </Nav.Link>
               </LinkContainer>
               <LinkContainer to='/signup'>
                 <Nav.Link>
-                  <i class='fas fa-user-plus'></i> Sign Up
+                  <i className='fas fa-user-plus'></i> Sign Up
                 </Nav.Link>
               </LinkContainer>
             </Nav>

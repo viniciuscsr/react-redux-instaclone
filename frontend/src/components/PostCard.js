@@ -15,8 +15,7 @@ const PostCard = ({ post }) => {
               alt='avatar'
             />
             <p id='card-username-date'>
-              <strong>User Profile Link</strong> on{' '}
-              {post.date.$date.substring(0, 10)}
+              <strong>User Profile Link</strong> on {post.date.substring(0, 10)}
             </p>
           </div>
           <Row>
@@ -28,7 +27,8 @@ const PostCard = ({ post }) => {
                 <i className='far fa-comments'></i>
                 {'  '}
                 <strong>{post.title}</strong>
-                <p>{post.caption}</p>
+                <br />
+                {post.caption}
               </Card.Text>
             </Card.Body>
           </Row>
