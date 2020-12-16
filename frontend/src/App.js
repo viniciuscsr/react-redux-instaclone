@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import PostScreen from './screens/PostScreen';
 import NewsFeed from './screens/NewsFeed';
 import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/' component={HomeScreen} exact />
           <Route path='/post/:id' component={PostScreen} />
           <Route path='/login' component={LoginScreen} />
+          <Route path='/register' component={RegisterScreen} />
         </Container>
       </main>
       <Footer />
