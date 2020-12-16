@@ -15,7 +15,8 @@ const PostCard = ({ post }) => {
               alt='avatar'
             />
             <p id='card-username-date'>
-              <strong>User Profile Link</strong> on {post.date.substring(0, 10)}
+              <strong>User Profile Link</strong> on{' '}
+              {post.createdAt.substring(0, 10)}
             </p>
           </div>
           <Row>

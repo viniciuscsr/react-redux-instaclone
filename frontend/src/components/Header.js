@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../actions/userActions';
@@ -9,9 +10,11 @@ const Header = () => {
   const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const logoutHandler = () => {
     dispatch(logoutUser());
+    history.push('/');
   };
 
   return (
@@ -44,12 +47,19 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    {' '}
-                    <i className='fas fa-sign-in-alt'></i> Login
-                  </Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to='/login'>
+                    <Nav.Link>
+                      {' '}
+                      <i className='fas fa-sign-in-alt'></i> Login
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to='/register'>
+                    <Nav.Link>
+                      <i className='fas fa-user'></i> Sign Up
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>

@@ -28,4 +28,23 @@ const getPost = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getPosts, getPost };
+//@description create new post
+//@route POST /api/posts/
+//@Private
+
+const createNewPost = asyncHandler(async (req, res) => {
+  const { title, caption } = req.body;
+
+  const newPost = new Post({
+    title,
+    image: 'uploads/2020-08-22T19:20:53.545Zcape-town-aerial-view.jpg',
+    caption,
+    user: req.user._id,
+  });
+
+  const createdPost = await newPost.save();
+  res.status(201);
+  res.json(createdPost);
+});
+
+module.exports = { getPosts, getPost, createNewPost };
