@@ -9,6 +9,6 @@ const {
 } = require('../controllers/postController');
 
 router.route('/').get(getPosts).post(protect, createNewPost);
-router.route('/:id').get(getPost);
+router.route('/:id').get(protect, getPost);
 
 module.exports = router;

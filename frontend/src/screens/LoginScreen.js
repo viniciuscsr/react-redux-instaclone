@@ -7,8 +7,6 @@ import Loader from '../components/Loader';
 import { loginUser } from '../actions/userActions';
 
 const LoginScreen = ({ location, history }) => {
-  console.log(location);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

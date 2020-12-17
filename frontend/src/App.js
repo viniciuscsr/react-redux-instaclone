@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import PostScreen from './screens/PostScreen';
 import NewsFeed from './screens/NewsFeed';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import CreatePostScreen from './screens/CreatePostScreen';
 
 const App = () => {
   return (
@@ -15,11 +16,14 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path='/newsfeed' component={NewsFeed} />
-          <Route path='/' component={HomeScreen} exact />
-          <Route path='/post/:id' component={PostScreen} />
-          <Route path='/login' component={LoginScreen} />
-          <Route path='/register' component={RegisterScreen} />
+          <Switch>
+            <Route path='/newsfeed' component={NewsFeed} />
+            <Route path='/' component={HomeScreen} exact />
+            <Route path='/post/new' component={CreatePostScreen} exact />
+            <Route path='/post/:id' component={PostScreen} />
+            <Route path='/login' component={LoginScreen} />
+            <Route path='/register' component={RegisterScreen} />
+          </Switch>
         </Container>
       </main>
       <Footer />

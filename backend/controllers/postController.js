@@ -15,7 +15,7 @@ const getPosts = asyncHandler(async (req, res) => {
 
 //@description fetch post by ID
 //@route GET /api/posts/:id
-//@PUBLIC
+//@private
 
 const getPost = asyncHandler(async (req, res) => {
   const post = await Post.findById(req.params.id);

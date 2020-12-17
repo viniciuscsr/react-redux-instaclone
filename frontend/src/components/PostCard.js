@@ -15,12 +15,11 @@ const PostCard = ({ post }) => {
               alt='avatar'
             />
             <p id='card-username-date'>
-              <strong>User Profile Link</strong> on{' '}
-              {post.createdAt.substring(0, 10)}
+              <strong>User Profile Link</strong> on {post.createdAt}
             </p>
           </div>
           <Row>
-            <Card.Img variant='top' src={post.image} />
+            <Card.Img variant='top' src={'/' + post.image} />
             <Card.Body>
               <Card.Text>
                 <i className='far fa-heart'></i>

@@ -22,11 +22,20 @@ const Header = () => {
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           {userInfo ? (
-            <LinkContainer to='/newsfeed'>
-              <Navbar.Brand>
-                <i className='fab fa-instagram'></i> InstaClone
-              </Navbar.Brand>
-            </LinkContainer>
+            <>
+              <LinkContainer to='/newsfeed'>
+                <Navbar.Brand>
+                  <i className='fab fa-instagram'></i> InstaClone
+                </Navbar.Brand>
+              </LinkContainer>
+              <Nav>
+                <LinkContainer to='/post/new'>
+                  <Nav.Link>
+                    <i className='far fa-plus-square'></i> New Post
+                  </Nav.Link>
+                </LinkContainer>
+              </Nav>
+            </>
           ) : (
             <LinkContainer to='/'>
               <Navbar.Brand>
