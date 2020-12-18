@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 
 //@description fetch all posts
@@ -41,6 +42,15 @@ const createNewPost = asyncHandler(async (req, res) => {
     caption,
     user: req.user._id,
   });
+
+  const user = await User.findById(req.user._id);
+  if (user) {
+    user.posts.push(newPost);
+    await user.save();
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 
   const createdPost = await newPost.save();
   res.status(201);

@@ -17,9 +17,7 @@ const CreatePostScreen = ({ history }) => {
 
   useEffect(() => {
     if (post && post._id) {
-      //   redirect to post show page
-      //   history.push(`/post/${post._id}`)
-      history.push('/');
+      history.push(`/post/${post._id}`);
       dispatch({ type: POST_CREATE_RESET });
     }
   }, [post, history, dispatch]);

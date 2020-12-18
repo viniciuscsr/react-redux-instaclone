@@ -9,6 +9,7 @@ import NewsFeed from './screens/NewsFeed';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path='/post/:id' component={PostScreen} />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
+            <Route path='/profile' component={ProfileScreen} />
           </Switch>
         </Container>
       </main>
