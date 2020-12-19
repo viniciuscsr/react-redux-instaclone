@@ -10,12 +10,14 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userProfileReducer,
+  userUpdateProfileReducer,
 } from './reducers/userReducers';
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userProfile: userProfileReducer,
+  userUpdateProfile: userUpdateProfileReducer,
   postList: postListReducer,
   postCreate: postCreateReducer,
   postDetails: postDetailsReducer,
