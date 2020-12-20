@@ -15,11 +15,11 @@ const getPosts = asyncHandler(async (req, res) => {
 });
 
 //@description fetch post by ID
-//@route GET /api/posts/:id
+//@route GET /api/posts/:postId
 //@private
 
 const getPost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.postId);
 
   if (post) {
     res.json(post);
@@ -57,4 +57,40 @@ const createNewPost = asyncHandler(async (req, res) => {
   res.json(createdPost);
 });
 
-module.exports = { getPosts, getPost, createNewPost };
+//@desc delete post
+//@route DELETE /api/posts/:postId
+//@access private/owner
+
+const deletePost = asyncHandler(async (req, res) => {
+  const post = await Post.findById(req.params.postId);
+
+  if (post) {
+    await post.remove();
+    res.json('Post removed');
+  } else {
+    res.status(404);
+    throw new Error('Post not found');
+  }
+});
+
+//@desc update comment
+//@route PUT /api/posts/:postId/
+//@access private/owner
+
+const updatePost = asyncHandler(async (req, res) => {
+  const { title, caption } = req.body;
+
+  const post = await Post.findById(req.params.postId);
+
+  if (post) {
+    post.title = title;
+    post.caption = caption;
+    const updatedPost = await post.save();
+    res.json(updatedPost);
+  } else {
+    res.status(404);
+    throw new Error('Post not found');
+  }
+});
+
+module.exports = { getPosts, getPost, createNewPost, deletePost, updatePost };
