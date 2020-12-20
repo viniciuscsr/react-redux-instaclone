@@ -13,6 +13,13 @@ import {
   userUpdateProfileReducer,
 } from './reducers/userReducers';
 
+import {
+  commentListByPostReducer,
+  commentCreateReducer,
+  commentUpdateReducer,
+  commentDeleteReducer,
+} from './reducers/commentReducers';
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -21,6 +28,10 @@ const reducer = combineReducers({
   postList: postListReducer,
   postCreate: postCreateReducer,
   postDetails: postDetailsReducer,
+  commentListByPost: commentListByPostReducer,
+  commentCreate: commentCreateReducer,
+  commentUpdate: commentUpdateReducer,
+  commentDelete: commentDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
