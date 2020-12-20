@@ -70,4 +70,23 @@ const deleteComment = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createComment, getComments, deleteComment };
+//@desc update comment
+//@route PUT /api/posts/:postId/comments/:commentId
+//@access private
+
+const updateComment = asyncHandler(async (req, res) => {
+  const { text } = req.body;
+
+  const comment = await Comment.findById(req.params.commentId);
+
+  if (comment) {
+    comment.text = text;
+    const updatedComment = await comment.save();
+    res.json(updatedComment);
+  } else {
+    res.status(404);
+    throw new Error('Comment not found');
+  }
+});
+
+module.exports = { createComment, getComments, deleteComment, updateComment };
