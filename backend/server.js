@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 const PORT = process.env.PORT || 4000;
 const dbConnect = require('./config/db');
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/posts/:postId/comments', commentRoutes);
 
 app.use(notFound);
 
