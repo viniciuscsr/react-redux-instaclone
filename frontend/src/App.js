@@ -21,7 +21,7 @@ const App = () => {
             <Route path='/newsfeed' component={NewsFeed} />
             <Route path='/' component={HomeScreen} exact />
             <Route path='/post/new' component={CreatePostScreen} exact />
-            <Route path='/post/:id' component={PostScreen} />
+            <Route path='/post/:postId' component={PostScreen} />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
             <Route path='/profile' component={ProfileScreen} />

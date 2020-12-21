@@ -109,8 +109,8 @@ const ProfileScreen = ({ history }) => {
           </Col>
 
           {user.posts.map((post) => (
-            <Col sm={12} md={12} lg={4} xl={4}>
-              <Card key={post._id} style={{ width: '18rem' }}>
+            <Col key={post._id} sm={12} md={12} lg={4} xl={4}>
+              <Card style={{ width: '18rem' }}>
                 <Card.Img variant='top' src={post.image} />
                 <Card.Body>
                   <Card.Title>{post.title}</Card.Title>

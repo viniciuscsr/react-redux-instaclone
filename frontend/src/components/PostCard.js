@@ -1,7 +1,8 @@
 import React from 'react';
-import { Col, Row, Card } from 'react-bootstrap';
+import { Col, Row, Card, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, button }) => {
   return (
     <Card>
       <Col>
@@ -30,6 +31,11 @@ const PostCard = ({ post }) => {
                 <br />
                 {post.caption}
               </Card.Text>
+              {button && (
+                <LinkContainer to={`/post/${post._id}`}>
+                  <Button variant='primary'>View Post</Button>
+                </LinkContainer>
+              )}
             </Card.Body>
           </Row>
         </div>

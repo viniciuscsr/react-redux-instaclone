@@ -44,7 +44,10 @@ const createComment = asyncHandler(async (req, res) => {
 //@access private
 
 const getComments = asyncHandler(async (req, res) => {
-  const comments = await Comment.find({ post: req.params.postId });
+  const comments = await Comment.find({ post: req.params.postId }).populate(
+    'user',
+    'name'
+  );
 
   if (comments) {
     res.json(comments);

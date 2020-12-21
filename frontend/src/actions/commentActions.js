@@ -59,7 +59,7 @@ export const createComment = (postId, text) => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       `/api/posts/${postId}/comments`,
-      text,
+      { text: text },
       config
     );
     dispatch({ type: COMMENT_CREATE_SUCCESS, payload: data });
