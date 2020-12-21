@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row, Card, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const PostCard = ({ post, button }) => {
+const PostCard = ({ post, button, profileLink }) => {
   return (
     <Card>
       <Col>
@@ -16,6 +16,11 @@ const PostCard = ({ post, button }) => {
               alt='avatar'
             />
             <p id='card-username-date'>
+              {profileLink && (
+                <LinkContainer to={`/user/${post.user}`}>
+                  <a href={`/user/${post.user}`}>Author Name</a>
+                </LinkContainer>
+              )}
               <strong>User Profile Link</strong> on {post.createdAt}
             </p>
           </div>

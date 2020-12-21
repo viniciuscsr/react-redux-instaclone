@@ -41,7 +41,7 @@ const PostScreen = ({ match }) => {
     dispatch({ type: COMMENT_CREATE_RESET });
     dispatch(getPostDetails(postId));
     dispatch(listCommentsByPost(postId));
-  }, [dispatch, match, comment, success]);
+  }, [dispatch, comment, success, postId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -55,8 +55,8 @@ const PostScreen = ({ match }) => {
 
   return (
     <>
-      {error && <Message>{error}</Message>}
       {loading && <Loader />}
+      {error && <Message>{error}</Message>}
       <Col md={8} className='mr-auto ml-auto p-0'>
         <Row>
           <PostCard post={post} />

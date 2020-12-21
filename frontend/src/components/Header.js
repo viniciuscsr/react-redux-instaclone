@@ -48,7 +48,7 @@ const Header = () => {
             <Nav className='ml-auto'>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='userName'>
-                  <LinkContainer to='/profile'>
+                  <LinkContainer to={`/user/${userInfo._id}`}>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>

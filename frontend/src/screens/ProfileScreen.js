@@ -111,7 +111,7 @@ const ProfileScreen = ({ history }) => {
           {user.posts.map((post) => (
             <Col key={post._id} sm={12} md={12} lg={4} xl={4}>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant='top' src={post.image} />
+                <Card.Img variant='top' src={'/' + post.image} />
                 <Card.Body>
                   <Card.Title>{post.title}</Card.Title>
                   <Card.Text>{post.caption}</Card.Text>

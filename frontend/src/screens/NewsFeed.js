@@ -27,7 +27,7 @@ const NewsFeed = () => {
           <Row>
             {posts.map((post) => (
               <Container className='mt-2 mb-2' key={post._id}>
-                <PostCard post={post} button />
+                <PostCard post={post} button profileLink />
               </Container>
             ))}
           </Row>

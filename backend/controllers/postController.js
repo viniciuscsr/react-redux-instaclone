@@ -93,4 +93,51 @@ const updatePost = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getPosts, getPost, createNewPost, deletePost, updatePost };
+//@desc like post
+//@route GET /api/posts/:postId/like
+//@access private
+
+const likePost = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const postId = req.params.postId;
+  const post = await Post.findById(postId);
+  //check if user already liked the post
+  const userLiked = post.likes.includes(userId);
+  if (userLiked === true) {
+    res.status(406);
+    throw new Error('User already liked the post');
+  } else {
+    post.likes.push(userId);
+    await post.save();
+    res.json({ success: true });
+  }
+});
+
+//@desc unlike post
+//@route GET /api/posts/:postId/unlike
+//@access private
+
+const unlikePost = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const postId = req.params.postId;
+  const post = await Post.findById(postId);
+  const userLiked = post.likes.includes(userId);
+  if (userLiked === true) {
+    post.likes.pull(userId);
+    await post.save();
+    res.json({ success: true });
+  } else {
+    res.status(406);
+    throw new Error('User never liked this post');
+  }
+});
+
+module.exports = {
+  getPosts,
+  getPost,
+  createNewPost,
+  deletePost,
+  updatePost,
+  likePost,
+  unlikePost,
+};

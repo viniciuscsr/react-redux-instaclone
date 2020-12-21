@@ -9,6 +9,8 @@ const {
   createNewPost,
   deletePost,
   updatePost,
+  likePost,
+  unlikePost,
 } = require('../controllers/postController');
 
 router.route('/').get(getPosts).post(protect, createNewPost);
@@ -17,5 +19,8 @@ router
   .get(protect, getPost)
   .delete(protect, postOwnership, deletePost)
   .put(protect, postOwnership, updatePost);
+
+router.get('/:postId/like', protect, likePost);
+router.get('/:postId/unlike', protect, unlikePost);
 
 module.exports = router;

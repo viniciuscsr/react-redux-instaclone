@@ -24,7 +24,7 @@ const App = () => {
             <Route path='/post/:postId' component={PostScreen} />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
-            <Route path='/profile' component={ProfileScreen} />
+            <Route path='/user/:userId' component={ProfileScreen} />
           </Switch>
         </Container>
       </main>
