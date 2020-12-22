@@ -35,13 +35,23 @@ const PostScreen = ({ match }) => {
   const { success, error: errorDeleteComment } = commentDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const {
+    loading: userLoginLoading,
+    userInfo,
+    error: userLoginError,
+  } = userLogin;
+
+  const postLike = useSelector((state) => state.postLike);
+  const { success: likeSuccess } = postLike;
+
+  const postUnlike = useSelector((state) => state.postUnlike);
+  const { success: unlikeSuccess } = postUnlike;
 
   useEffect(() => {
     dispatch({ type: COMMENT_CREATE_RESET });
     dispatch(getPostDetails(postId));
     dispatch(listCommentsByPost(postId));
-  }, [dispatch, comment, success, postId]);
+  }, [dispatch, comment, success, postId, likeSuccess, unlikeSuccess]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -59,7 +69,9 @@ const PostScreen = ({ match }) => {
       {error && <Message>{error}</Message>}
       <Col md={8} className='mr-auto ml-auto p-0'>
         <Row>
-          <PostCard post={post} />
+          {userLoginLoading && <Loader />}
+          {userLoginError && <Message>{userLoginError}</Message>}
+          <PostCard post={post} userInfo={userInfo} postId={postId} />
         </Row>
         {loadingComment && <Loader />}
         {errorComment && <Message>{errorComment}</Message>}
@@ -75,26 +87,30 @@ const PostScreen = ({ match }) => {
               <>
                 {errorDeleteComment && <Message>{errorDeleteComment}</Message>}
                 {comments.map((comment) => (
-                  <ul key={comment._id} className='list-unstyled'>
-                    <Media as='li'>
-                      <img
-                        width={32}
-                        height={32}
-                        className='rounded-circle ml-1 mr-1 mt-2'
-                        src='https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg'
-                        alt='Generic placeholder'
-                      />
-                      <Media.Body className='mt-2'>
-                        <p>{comment.text}</p>
-                        <Button
-                          variant='outline-danger'
-                          className='btn-sm'
-                          onClick={() => deleteHandler(comment._id)}>
-                          <i className='far fa-trash-alt'></i>
-                        </Button>
-                      </Media.Body>
-                    </Media>
-                  </ul>
+                  <>
+                    <ul key={comment._id} className='list-unstyled'>
+                      <Media as='li'>
+                        <img
+                          width={32}
+                          height={32}
+                          className='rounded-circle ml-1 mr-1 mt-2'
+                          src='https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg'
+                          alt='Generic placeholder'
+                        />
+                        <Media.Body className='mt-2'>
+                          <p>{comment.text}</p>
+                          {userInfo._id === comment.user.id && (
+                            <Button
+                              variant='outline-danger'
+                              className='btn-sm'
+                              onClick={() => deleteHandler(comment._id)}>
+                              <i className='far fa-trash-alt'></i>
+                            </Button>
+                          )}
+                        </Media.Body>
+                      </Media>
+                    </ul>
+                  </>
                 ))}
               </>
             ) : (

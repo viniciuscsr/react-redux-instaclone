@@ -1,8 +1,20 @@
 import React from 'react';
 import { Col, Row, Card, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useDispatch } from 'react-redux';
+import { likePost, unlikePost } from '../actions/postActions';
 
-const PostCard = ({ post, button, profileLink }) => {
+const PostCard = ({ post, button, userInfo, postId }) => {
+  const dispatch = useDispatch();
+
+  const likePostHandler = () => {
+    dispatch(likePost(postId));
+  };
+
+  const unlikePostHandler = () => {
+    dispatch(unlikePost(postId));
+  };
+
   return (
     <Card>
       <Col>
@@ -16,11 +28,9 @@ const PostCard = ({ post, button, profileLink }) => {
               alt='avatar'
             />
             <p id='card-username-date'>
-              {profileLink && (
-                <LinkContainer to={`/user/${post.user}`}>
-                  <a href={`/user/${post.user}`}>Author Name</a>
-                </LinkContainer>
-              )}
+              <LinkContainer to={`/user/${post.user}`}>
+                <a href={`/user/${post.user}`}>Author Name</a>
+              </LinkContainer>
               <strong>User Profile Link</strong> on {post.createdAt}
             </p>
           </div>
@@ -28,7 +38,22 @@ const PostCard = ({ post, button, profileLink }) => {
             <Card.Img variant='top' src={'/' + post.image} />
             <Card.Body>
               <Card.Text>
-                <i className='far fa-heart'></i>
+                {post.likes && post.likes.includes(userInfo._id) ? (
+                  <Button
+                    style={{ border: '0' }}
+                    variant='outline-danger'
+                    onClick={() => unlikePostHandler()}>
+                    <i className='fas fa-heart'></i>
+                  </Button>
+                ) : (
+                  <Button
+                    style={{ border: '0' }}
+                    variant='outline-danger'
+                    onClick={() => likePostHandler()}>
+                    <i className='far fa-heart'></i>
+                  </Button>
+                )}
+
                 {'  '}
                 <i className='far fa-comments'></i>
                 {'  '}

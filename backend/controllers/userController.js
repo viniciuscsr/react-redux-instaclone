@@ -62,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access private
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id).populate('posts');
+  const user = await User.findById(req.params.userId).populate('posts');
 
   if (user) {
     res.json(user);

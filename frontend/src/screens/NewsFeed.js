@@ -12,9 +12,18 @@ const NewsFeed = () => {
   const postList = useSelector((state) => state.postList);
   const { loading, posts, error } = postList;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const postLike = useSelector((state) => state.postLike);
+  const { success: likeSuccess } = postLike;
+
+  const postUnlike = useSelector((state) => state.postUnlike);
+  const { success: unlikeSuccess } = postUnlike;
+
   useEffect(() => {
     dispatch(listPosts());
-  }, [dispatch]);
+  }, [dispatch, likeSuccess, unlikeSuccess]);
 
   return (
     <>
@@ -27,7 +36,12 @@ const NewsFeed = () => {
           <Row>
             {posts.map((post) => (
               <Container className='mt-2 mb-2' key={post._id}>
-                <PostCard post={post} button profileLink />
+                <PostCard
+                  post={post}
+                  button
+                  userInfo={userInfo}
+                  postId={post._id}
+                />
               </Container>
             ))}
           </Row>
