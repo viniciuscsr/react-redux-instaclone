@@ -100,4 +100,73 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { authUser, registerUser, getUserProfile, updateUserProfile };
+//@desc follow a user
+//@route GET /api/users/:userId/follow
+//@access private
+
+const followUser = asyncHandler(async (req, res) => {
+  const loggedUserId = req.user._id;
+  const targetUserId = req.params.userId;
+
+  if (loggedUserId.equals(targetUserId)) {
+    res.status(404);
+    throw new Error('You cannot follow yourself');
+  } else {
+    // checking for double entries and adding to the followers array
+    let targetUser = await User.findById(targetUserId);
+    if (targetUser.followers.includes(loggedUserId)) {
+      throw new Error('You already follow this user');
+    } else {
+      targetUser.followers.push(loggedUserId);
+      await targetUser.save();
+    }
+
+    //checking for double entries and adding to the following array
+    let loggedUser = await User.findById(loggedUserId);
+    if (loggedUser.following.includes(targetUser.id)) {
+      throw new Error('You already follow this user');
+    } else {
+      loggedUser.following.push(targetUserId);
+      await loggedUser.save();
+    }
+
+    res.status(200);
+    res.json({ message: 'Success!' });
+  }
+});
+
+//@desc unfollow a user
+//@route GET /api/users/:userId/unfollow
+//@access private
+
+const unfollowUser = asyncHandler(async (req, res) => {
+  const loggedUserId = req.user._id;
+  const targetUserId = req.params.userId;
+
+  if (loggedUserId.equals(targetUserId)) {
+    res.status(404);
+    throw new Error('You cannot unfollow yourself');
+  } else {
+    // removing id from the follower field
+    let targetUser = await User.findById(targetUserId);
+    targetUser.followers.pull(loggedUserId);
+    await targetUser.save();
+
+    //removing id from the following field
+    let loggedUser = await User.findById(loggedUserId);
+    loggedUser.following.pull(targetUserId);
+    await loggedUser.save();
+
+    res.status(200);
+    res.json({ message: 'Success!' });
+  }
+});
+
+module.exports = {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  followUser,
+  unfollowUser,
+};
