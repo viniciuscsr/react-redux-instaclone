@@ -12,7 +12,7 @@ import {
 } from '../actions/commentActions';
 import { COMMENT_CREATE_RESET } from '../constants/commentConstants';
 
-const PostScreen = ({ match }) => {
+const PostScreen = ({ match, history }) => {
   const [text, setText] = useState('');
 
   const { postId } = match.params;
@@ -71,7 +71,13 @@ const PostScreen = ({ match }) => {
         <Row>
           {userLoginLoading && <Loader />}
           {userLoginError && <Message>{userLoginError}</Message>}
-          <PostCard post={post} userInfo={userInfo} postId={postId} />
+          <PostCard
+            post={post}
+            userInfo={userInfo}
+            postId={postId}
+            history={history}
+            postSettings
+          />
         </Row>
         {loadingComment && <Loader />}
         {errorComment && <Message>{errorComment}</Message>}

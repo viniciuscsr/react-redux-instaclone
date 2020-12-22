@@ -1,10 +1,17 @@
 import React from 'react';
-import { Col, Row, Card, Button } from 'react-bootstrap';
+import { Col, Row, Card, Button, Dropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch } from 'react-redux';
-import { likePost, unlikePost } from '../actions/postActions';
+import { likePost, unlikePost, deletePost } from '../actions/postActions';
 
-const PostCard = ({ post, button, userInfo, postId }) => {
+const PostCard = ({
+  post,
+  button,
+  userInfo,
+  postId,
+  history,
+  postSettings,
+}) => {
   const dispatch = useDispatch();
 
   const likePostHandler = () => {
@@ -13,6 +20,13 @@ const PostCard = ({ post, button, userInfo, postId }) => {
 
   const unlikePostHandler = () => {
     dispatch(unlikePost(postId));
+  };
+
+  const deleteHandler = () => {
+    if (window.confirm('Are you sure?')) {
+      dispatch(deletePost(postId));
+      history.goBack();
+    }
   };
 
   return (
@@ -38,28 +52,46 @@ const PostCard = ({ post, button, userInfo, postId }) => {
             <Card.Img variant='top' src={'/' + post.image} />
             <Card.Body>
               <Card.Text>
-                {post.likes && post.likes.includes(userInfo._id) ? (
-                  <Button
-                    style={{ border: '0' }}
-                    variant='outline-danger'
-                    onClick={() => unlikePostHandler()}>
-                    <i className='fas fa-heart'></i>
-                  </Button>
-                ) : (
-                  <Button
-                    style={{ border: '0' }}
-                    variant='outline-danger'
-                    onClick={() => likePostHandler()}>
-                    <i className='far fa-heart'></i>
-                  </Button>
-                )}
+                <Row>
+                  {post.likes && post.likes.includes(userInfo._id) ? (
+                    <Button
+                      style={{ border: '0' }}
+                      variant='outline-danger'
+                      onClick={() => unlikePostHandler()}>
+                      <i className='fas fa-heart'></i>
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{ border: '0' }}
+                      variant='outline-danger'
+                      onClick={() => likePostHandler()}>
+                      <i className='far fa-heart'></i>
+                    </Button>
+                  )}
 
-                {'  '}
-                <i className='far fa-comments'></i>
-                {'  '}
-                <strong>{post.title}</strong>
-                <br />
-                {post.caption}
+                  {'  '}
+
+                  <strong className='py-1'>{post.title}</strong>
+                  {postSettings && userInfo._id === post.user && (
+                    <Dropdown className='ml-auto'>
+                      <Dropdown.Toggle
+                        variant='success'
+                        id='dropdown-basic'></Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <LinkContainer to={`/post/${postId}/edit`}>
+                          <Dropdown.Item href={`/post/${postId}/edit`}>
+                            Edit
+                          </Dropdown.Item>
+                        </LinkContainer>
+                        <Dropdown.Item onClick={() => deleteHandler()}>
+                          Delete
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
+                </Row>
+                <Row>{post.caption}</Row>
               </Card.Text>
               {button && (
                 <LinkContainer to={`/post/${post._id}`}>

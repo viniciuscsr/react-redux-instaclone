@@ -7,6 +7,8 @@ import {
   postDetailsReducer,
   postLikeReducer,
   postUnlikeReducer,
+  postEditReducer,
+  postDeleteReducer,
 } from './reducers/postReducers';
 import {
   userLoginReducer,
@@ -32,6 +34,8 @@ const reducer = combineReducers({
   postDetails: postDetailsReducer,
   postLike: postLikeReducer,
   postUnlike: postUnlikeReducer,
+  postEdit: postEditReducer,
+  postDelete: postDeleteReducer,
   commentListByPost: commentListByPostReducer,
   commentCreate: commentCreateReducer,
   commentUpdate: commentUpdateReducer,

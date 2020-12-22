@@ -11,6 +11,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import EditPostScreen from './screens/EditPostScreen';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/newsfeed' component={NewsFeed} />
             <Route path='/' component={HomeScreen} exact />
             <Route path='/post/new' component={CreatePostScreen} exact />
+            <Route path='/post/:postId/edit' component={EditPostScreen} />
             <Route path='/post/:postId' component={PostScreen} />
             <Route path='/login' component={LoginScreen} />
             <Route path='/register' component={RegisterScreen} />
