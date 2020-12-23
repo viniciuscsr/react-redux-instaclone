@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Card, Button } from 'react-bootstrap';
+import { Row, Col, Card, Button, CardGroup } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserProfile } from '../actions/userActions';
+import {
+  getUserProfile,
+  followUser,
+  unfollowUser,
+} from '../actions/userActions';
 
 const ProfileScreen = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -16,13 +20,27 @@ const ProfileScreen = ({ history, match }) => {
   const userProfile = useSelector((state) => state.userProfile);
   const { loading, user, error } = userProfile;
 
+  const userFollow = useSelector((state) => state.userFollow);
+  const { success: followSuccess } = userFollow;
+
+  const userUnfollow = useSelector((state) => state.userUnfollow);
+  const { success: unfollowSuccess } = userUnfollow;
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     } else {
       dispatch(getUserProfile(userId));
     }
-  }, [dispatch, userInfo, history, userId]);
+  }, [dispatch, userInfo, history, userId, followSuccess, unfollowSuccess]);
+
+  const followHandler = () => {
+    dispatch(followUser(userId));
+  };
+
+  const unfollowHandler = () => {
+    dispatch(unfollowUser(userId));
+  };
 
   return (
     <>
@@ -32,26 +50,50 @@ const ProfileScreen = ({ history, match }) => {
         <Message>{error}</Message>
       ) : (
         <Col sm={12} md={12} lg={12} xl={12}>
-          <Row>
-            <h2 className='mr-auto ml-auto'>{user.name}</h2>
+          <Row className='my-2'>
+            <h2 className='mr-2'>{user.name}</h2>
+            {userId !== userInfo._id &&
+              (user.following && user.followers.includes(userInfo._id) ? (
+                <>
+                  <Button
+                    className='mr-2'
+                    onClick={() => followHandler()}
+                    size='sm'
+                    variant='primary'
+                    disabled>
+                    Following
+                  </Button>
+                  <Button
+                    onClick={() => unfollowHandler()}
+                    size='sm'
+                    variant='primary'>
+                    Unfollow
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  onClick={() => followHandler()}
+                  size='sm'
+                  variant='primary'>
+                  Follow
+                </Button>
+              ))}
           </Row>
-          {user.posts &&
-            user.posts.map((post) => (
-              <Row>
-                <Col key={post._id}>
-                  <Card style={{ width: '18rem' }}>
-                    <Card.Img variant='top' src={'/' + post.image} />
-                    <Card.Body>
-                      <Card.Title>{post.title}</Card.Title>
-                      <Card.Text>{post.caption}</Card.Text>
-                      <LinkContainer to={`/post/${post._id}`}>
-                        <Button variant='primary'>View Post</Button>
-                      </LinkContainer>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-            ))}
+          <CardGroup>
+            {user.posts &&
+              user.posts.map((post) => (
+                <Card key={post._id} style={{ width: '18rem' }}>
+                  <Card.Img variant='top' src={'/' + post.image} />
+                  <Card.Body>
+                    <Card.Title>{post.title}</Card.Title>
+                    <Card.Text>{post.caption}</Card.Text>
+                    <LinkContainer to={`/post/${post._id}`}>
+                      <Button variant='primary'>View Post</Button>
+                    </LinkContainer>
+                  </Card.Body>
+                </Card>
+              ))}
+          </CardGroup>
         </Col>
       )}
     </>

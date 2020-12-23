@@ -14,6 +14,12 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_PROFILE_RESET,
+  USER_FOLLOW_REQUEST,
+  USER_FOLLOW_SUCCESS,
+  USER_FOLLOW_FAIL,
+  USER_UNFOLLOW_REQUEST,
+  USER_UNFOLLOW_SUCCESS,
+  USER_UNFOLLOW_FAIL,
 } from '../constants/userConstants';
 
 export const loginUser = (email, password) => async (dispatch) => {
@@ -132,6 +138,64 @@ export const updateUserProfile = (updatedUser) => async (
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const followUser = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_FOLLOW_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        ContentType: 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.get(`/api/users/${userId}/follow`, config);
+
+    dispatch({ type: USER_FOLLOW_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: USER_FOLLOW_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const unfollowUser = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_UNFOLLOW_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        ContentType: 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.get(`/api/users/${userId}/unfollow`, config);
+
+    dispatch({ type: USER_UNFOLLOW_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: USER_UNFOLLOW_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

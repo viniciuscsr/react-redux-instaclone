@@ -41,10 +41,10 @@ const PostCard = ({
               width='50px'
               alt='avatar'
             />
+            <LinkContainer to={`/user/${post.user}`}>
+              <a href={`/user/${post.user}`}>Author Name</a>
+            </LinkContainer>
             <p id='card-username-date'>
-              <LinkContainer to={`/user/${post.user}`}>
-                <a href={`/user/${post.user}`}>Author Name</a>
-              </LinkContainer>
               <strong>User Profile Link</strong> on {post.createdAt}
             </p>
           </div>
@@ -69,9 +69,9 @@ const PostCard = ({
                     </Button>
                   )}
 
-                  {'  '}
-
-                  <strong className='py-1'>{post.title}</strong>
+                  <p>
+                    <strong className='py-1'>{post.title}</strong>
+                  </p>
                   {postSettings && userInfo._id === post.user && (
                     <Dropdown className='ml-auto'>
                       <Dropdown.Toggle
@@ -91,7 +91,9 @@ const PostCard = ({
                     </Dropdown>
                   )}
                 </Row>
-                <Row>{post.caption}</Row>
+                <Row>
+                  <p>{post.caption}</p>
+                </Row>
               </Card.Text>
               {button && (
                 <LinkContainer to={`/post/${post._id}`}>
