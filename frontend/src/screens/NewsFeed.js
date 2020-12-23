@@ -4,13 +4,13 @@ import PostCard from '../components/PostCard';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listPosts } from '../actions/postActions';
+import { newsfeedPosts } from '../actions/postActions';
 
 const NewsFeed = () => {
   const dispatch = useDispatch();
 
-  const postList = useSelector((state) => state.postList);
-  const { loading, posts, error } = postList;
+  const postNewsfeed = useSelector((state) => state.postNewsfeed);
+  const { loading, posts, error } = postNewsfeed;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -22,7 +22,7 @@ const NewsFeed = () => {
   const { success: unlikeSuccess } = postUnlike;
 
   useEffect(() => {
-    dispatch(listPosts());
+    dispatch(newsfeedPosts());
   }, [dispatch, likeSuccess, unlikeSuccess]);
 
   return (
@@ -31,7 +31,7 @@ const NewsFeed = () => {
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
-      ) : (
+      ) : posts.length > 0 ? (
         <Col md={8} className='mr-auto ml-auto'>
           <Row>
             {posts.map((post) => (
@@ -46,6 +46,11 @@ const NewsFeed = () => {
             ))}
           </Row>
         </Col>
+      ) : (
+        <h1>
+          You don't follow any users yet. Use the search box to find users to
+          follow.
+        </h1>
       )}
     </>
   );

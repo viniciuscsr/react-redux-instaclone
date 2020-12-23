@@ -41,12 +41,17 @@ const PostCard = ({
               width='50px'
               alt='avatar'
             />
-            <LinkContainer to={`/user/${post.user}`}>
-              <a href={`/user/${post.user}`}>Author Name</a>
-            </LinkContainer>
-            <p id='card-username-date'>
-              <strong>User Profile Link</strong> on {post.createdAt}
-            </p>
+            {post.user.name && (
+              <>
+                <LinkContainer to={`/user/${post.user._id}`}>
+                  <a href={`/user/${post.user._id}`}>{post.user.name} </a>
+                </LinkContainer>
+                <p id='card-username-date' className='mr-auto'>
+                  {' '}
+                  on {post.createdAt}
+                </p>
+              </>
+            )}
           </div>
           <Row>
             <Card.Img variant='top' src={post.image} />

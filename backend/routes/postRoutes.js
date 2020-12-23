@@ -5,6 +5,7 @@ const { protect } = require('../middleware/authMiddleware');
 const { postOwnership } = require('../middleware/authorizationMiddleware');
 const {
   getPosts,
+  getNewsfeedPosts,
   getPost,
   createNewPost,
   deletePost,
@@ -14,6 +15,7 @@ const {
 } = require('../controllers/postController');
 
 router.route('/').get(getPosts).post(protect, createNewPost);
+router.route('/newsfeed').get(protect, getNewsfeedPosts);
 router
   .route('/:postId')
   .get(protect, getPost)

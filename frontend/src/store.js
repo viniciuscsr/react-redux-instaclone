@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
-  postListReducer,
+  postNewsfeedReducer,
   postCreateReducer,
   postDetailsReducer,
   postLikeReducer,
@@ -33,7 +33,7 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   userFollow: userFollowReducer,
   userUnfollow: userUnfollowReducer,
-  postList: postListReducer,
+  postNewsfeed: postNewsfeedReducer,
   postCreate: postCreateReducer,
   postDetails: postDetailsReducer,
   postLike: postLikeReducer,

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {
-  POST_LIST_REQUEST,
-  POST_LIST_SUCCESS,
-  POST_LIST_FAIL,
+  POST_NEWSFEED_REQUEST,
+  POST_NEWSFEED_SUCCESS,
+  POST_NEWSFEED_FAIL,
   POST_CREATE_REQUEST,
   POST_CREATE_SUCCESS,
   POST_CREATE_FAIL,
@@ -23,15 +23,26 @@ import {
   POST_DELETE_FAIL,
 } from '../constants/postConstants';
 
-export const listPosts = () => async (dispatch) => {
-  try {
-    dispatch({ type: POST_LIST_REQUEST });
+export const newsfeedPosts = () => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
 
-    const { data } = await axios.get('/api/posts');
-    dispatch({ type: POST_LIST_SUCCESS, payload: data });
+  const config = {
+    headers: {
+      ContentType: 'application/json',
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  try {
+    dispatch({ type: POST_NEWSFEED_REQUEST });
+
+    const { data } = await axios.get('/api/posts/newsfeed', config);
+    dispatch({ type: POST_NEWSFEED_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: POST_LIST_FAIL,
+      type: POST_NEWSFEED_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -9,9 +9,36 @@ const asyncHandler = require('express-async-handler');
 const getPosts = asyncHandler(async (req, res) => {
   const pageSize = 10;
 
-  const posts = await Post.find().limit(pageSize);
+  const posts = await Post.find().limit(pageSize).populate('user');
 
   res.json(posts);
+});
+
+//@description fetch newsfeed posts
+//@route GET /api/posts/newsfeed
+//@PUBLIC private
+
+const getNewsfeedPosts = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  const user = await User.findById(userId);
+
+  let posts = [];
+
+  for (let i = 0; i < user.following.length; i++) {
+    let postsFromFollowing = await Post.find({
+      user: user.following[i],
+    }).populate('user');
+    for (let i = 0; i < postsFromFollowing.length; i++) {
+      posts.push(postsFromFollowing[i]);
+    }
+  }
+
+  const sortedPosts = posts.sort(function (a, b) {
+    return b.createdAt - a.createdAt;
+  });
+
+  res.json(sortedPosts);
 });
 
 //@description fetch post by ID
@@ -19,7 +46,7 @@ const getPosts = asyncHandler(async (req, res) => {
 //@private
 
 const getPost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.postId);
+  const post = await Post.findById(req.params.postId).populate('user');
 
   if (post) {
     res.json(post);
@@ -134,6 +161,7 @@ const unlikePost = asyncHandler(async (req, res) => {
 
 module.exports = {
   getPosts,
+  getNewsfeedPosts,
   getPost,
   createNewPost,
   deletePost,

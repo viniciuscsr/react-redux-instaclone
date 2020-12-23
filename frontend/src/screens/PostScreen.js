@@ -71,13 +71,15 @@ const PostScreen = ({ match, history }) => {
         <Row>
           {userLoginLoading && <Loader />}
           {userLoginError && <Message>{userLoginError}</Message>}
-          <PostCard
-            post={post}
-            userInfo={userInfo}
-            postId={postId}
-            history={history}
-            postSettings
-          />
+          {post.title && (
+            <PostCard
+              post={post}
+              userInfo={userInfo}
+              postId={postId}
+              history={history}
+              postSettings
+            />
+          )}
         </Row>
         {loadingComment && <Loader />}
         {errorComment && <Message>{errorComment}</Message>}
