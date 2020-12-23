@@ -49,7 +49,7 @@ const PostCard = ({
             </p>
           </div>
           <Row>
-            <Card.Img variant='top' src={'/' + post.image} />
+            <Card.Img variant='top' src={post.image} />
             <Card.Body>
               <Card.Text>
                 <Row>

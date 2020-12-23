@@ -34,11 +34,11 @@ const getPost = asyncHandler(async (req, res) => {
 //@Private
 
 const createNewPost = asyncHandler(async (req, res) => {
-  const { title, caption } = req.body;
+  const { title, caption, image } = req.body;
 
   const newPost = new Post({
     title,
-    image: 'uploads/2020-08-22T19:20:53.545Zcape-town-aerial-view.jpg',
+    image,
     caption,
     user: req.user._id,
   });

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,8 @@ import { POST_CREATE_RESET } from '../constants/postConstants';
 const CreatePostScreen = ({ history }) => {
   const [title, setTitle] = useState('');
   const [caption, setCaption] = useState('');
+  const [image, setImage] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -24,7 +27,29 @@ const CreatePostScreen = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createPost({ title, caption }));
+    dispatch(createPost({ title, caption, image }));
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post('/api/upload', formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -35,6 +60,20 @@ const CreatePostScreen = ({ history }) => {
           {error && <Message>{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
+            <Form.Group controlId='title'>
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Upload Image'
+                value={image}
+                onChange={(e) => setImage(e.target.value)}></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                onChange={uploadFileHandler}></Form.File>
+              {uploading && <Loader />}
+            </Form.Group>
             <Form.Group controlId='title'>
               <Form.Label>Post Title</Form.Label>
               <Form.Control
