@@ -1,5 +1,6 @@
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Comment = require('../models/commentModel');
 const asyncHandler = require('express-async-handler');
 
 //@description fetch all posts
@@ -89,7 +90,24 @@ const createNewPost = asyncHandler(async (req, res) => {
 //@access private/owner
 
 const deletePost = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.postId);
+  const { postId } = req.params;
+
+  const post = await Post.findById(postId);
+  const user = await User.findById(req.user._id);
+
+  // Deleting the comments of the post
+  for (let i = 0; i < post.comments.length; i++) {
+    await Comment.findByIdAndDelete(post.comments[i]._id);
+  }
+
+  //Deleting post from user.posts
+  if (user) {
+    user.posts.pull(postId);
+    user.save();
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 
   if (post) {
     await post.remove();

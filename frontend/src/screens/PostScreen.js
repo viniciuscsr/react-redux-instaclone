@@ -106,11 +106,11 @@ const PostScreen = ({ match, history }) => {
                           alt='Generic placeholder'
                         />
                         <Media.Body className='mt-2'>
-                          <p>{comment.text}</p>
+                          {comment.text}
                           {userInfo._id === comment.user.id && (
                             <Button
                               variant='outline-danger'
-                              className='btn-sm'
+                              className='btn-sm ml-2'
                               onClick={() => deleteHandler(comment._id)}>
                               <i className='far fa-trash-alt'></i>
                             </Button>

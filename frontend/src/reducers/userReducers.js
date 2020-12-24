@@ -53,7 +53,10 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
-export const userProfileReducer = (state = { user: { posts: [] } }, action) => {
+export const userProfileReducer = (
+  state = { loading: true, user: { posts: [] } },
+  action
+) => {
   switch (action.type) {
     case USER_PROFILE_REQUEST:
       return { loading: true };

@@ -48,8 +48,8 @@ const NewsFeed = () => {
         </Col>
       ) : (
         <h1>
-          You don't follow any users yet. Use the search box to find users to
-          follow.
+          You don't follow any users yet. Hit the search button to see all
+          users.
         </h1>
       )}
     </>

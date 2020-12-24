@@ -62,7 +62,18 @@ const getComments = asyncHandler(async (req, res) => {
 //@access private
 
 const deleteComment = asyncHandler(async (req, res) => {
-  const comment = await Comment.findById(req.params.commentId);
+  const { commentId } = req.params;
+
+  const comment = await Comment.findById(commentId);
+  const post = await Post.findById(comment.post);
+
+  if (post) {
+    post.comments.pull(commentId);
+    await post.save();
+  } else {
+    res.status(404);
+    throw new Error('Post not found');
+  }
 
   if (comment) {
     await comment.remove();

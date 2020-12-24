@@ -9,6 +9,7 @@ import {
   followUser,
   unfollowUser,
 } from '../actions/userActions';
+import { USER_PROFILE_RESET } from '../constants/userConstants';
 
 const ProfileScreen = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const ProfileScreen = ({ history, match }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
+      dispatch({ type: USER_PROFILE_RESET });
       dispatch(getUserProfile(userId));
     }
   }, [dispatch, userInfo, history, userId, followSuccess, unfollowSuccess]);
@@ -53,7 +55,7 @@ const ProfileScreen = ({ history, match }) => {
           <Row className='my-2'>
             <h2 className='mr-2'>{user.name}</h2>
             {userId !== userInfo._id &&
-              (user.following && user.followers.includes(userInfo._id) ? (
+              (user.followers && user.followers.includes(userInfo._id) ? (
                 <>
                   <Button
                     className='mr-2'
@@ -83,7 +85,11 @@ const ProfileScreen = ({ history, match }) => {
             {user.posts &&
               user.posts.map((post) => (
                 <Card key={post._id} style={{ width: '18rem' }}>
-                  <Card.Img variant='top' src={post.image} />
+                  <Card.Img
+                    variant='top'
+                    style={{ maxHeight: '10rem' }}
+                    src={post.image}
+                  />
                   <Card.Body>
                     <Card.Title>{post.title}</Card.Title>
                     <Card.Text>{post.caption}</Card.Text>

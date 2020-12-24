@@ -27,14 +27,12 @@ const SearchResultsScreen = ({ match }) => {
       <CardColumns>
         {users &&
           users.map((user) => (
-            <Card>
+            <Card key={user._id}>
               <Card.Body>
                 <Card.Title>{user.name}</Card.Title>
-                <Card.Text>
-                  <p>{user.posts.length} Posts </p>
-                  <p>{user.followers.length} Followers </p>
-                  <p>{user.following.length} Following </p>
-                </Card.Text>
+                <Card.Text>{user.posts.length} Posts</Card.Text>
+                <Card.Text>{user.followers.length} Followers</Card.Text>
+                <Card.Text>{user.following.length} Following</Card.Text>
                 <LinkContainer to={`/user/${user._id}`}>
                   <Button variant='primary'>View Profile</Button>
                 </LinkContainer>
