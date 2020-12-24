@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../actions/userActions';
+import SearchBox from './SearchBox';
 
 const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -45,6 +46,7 @@ const Header = () => {
           )}
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
+            <SearchBox history={history} />
             <Nav className='ml-auto'>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='userName'>

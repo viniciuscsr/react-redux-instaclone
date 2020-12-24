@@ -162,6 +162,32 @@ const unfollowUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Search for users
+//@route GET /api/users/search
+//@access private
+
+const searchUsers = asyncHandler(async (req, res) => {
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+
+  console.log(keyword);
+
+  const user = await User.find({ ...keyword });
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 module.exports = {
   authUser,
   registerUser,
@@ -169,4 +195,5 @@ module.exports = {
   updateUserProfile,
   followUser,
   unfollowUser,
+  searchUsers,
 };

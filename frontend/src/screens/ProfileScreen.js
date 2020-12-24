@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Card, Button, CardGroup } from 'react-bootstrap';
+import { Row, Col, Card, Button, CardColumns } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -79,11 +79,11 @@ const ProfileScreen = ({ history, match }) => {
                 </Button>
               ))}
           </Row>
-          <CardGroup>
+          <CardColumns>
             {user.posts &&
               user.posts.map((post) => (
                 <Card key={post._id} style={{ width: '18rem' }}>
-                  <Card.Img variant='top' src={'/' + post.image} />
+                  <Card.Img variant='top' src={post.image} />
                   <Card.Body>
                     <Card.Title>{post.title}</Card.Title>
                     <Card.Text>{post.caption}</Card.Text>
@@ -93,7 +93,7 @@ const ProfileScreen = ({ history, match }) => {
                   </Card.Body>
                 </Card>
               ))}
-          </CardGroup>
+          </CardColumns>
         </Col>
       )}
     </>

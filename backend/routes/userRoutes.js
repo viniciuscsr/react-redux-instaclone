@@ -8,11 +8,13 @@ const {
   updateUserProfile,
   followUser,
   unfollowUser,
+  searchUsers,
 } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 
 router.post('/login', authUser);
 router.route('/').post(registerUser);
+router.get('/search', protect, searchUsers);
 router
   .route('/:userId')
   .get(protect, getUserProfile)

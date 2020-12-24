@@ -20,6 +20,9 @@ import {
   USER_UNFOLLOW_REQUEST,
   USER_UNFOLLOW_SUCCESS,
   USER_UNFOLLOW_FAIL,
+  USER_SEARCH_REQUEST,
+  USER_SEARCH_SUCCESS,
+  USER_SEARCH_FAIL,
 } from '../constants/userConstants';
 
 export const loginUser = (email, password) => async (dispatch) => {
@@ -196,6 +199,38 @@ export const unfollowUser = (userId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UNFOLLOW_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const searchUser = (keyword = '') => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_SEARCH_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        ContentType: 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/users/search?keyword=${keyword}`,
+      config
+    );
+
+    dispatch({ type: USER_SEARCH_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_SEARCH_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

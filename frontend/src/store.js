@@ -17,6 +17,7 @@ import {
   userUpdateProfileReducer,
   userFollowReducer,
   userUnfollowReducer,
+  userSearchReducer,
 } from './reducers/userReducers';
 
 import {
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   userFollow: userFollowReducer,
   userUnfollow: userUnfollowReducer,
+  userSearch: userSearchReducer,
   postNewsfeed: postNewsfeedReducer,
   postCreate: postCreateReducer,
   postDetails: postDetailsReducer,

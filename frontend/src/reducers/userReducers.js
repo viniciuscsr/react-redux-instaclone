@@ -20,6 +20,9 @@ import {
   USER_UNFOLLOW_REQUEST,
   USER_UNFOLLOW_SUCCESS,
   USER_UNFOLLOW_FAIL,
+  USER_SEARCH_REQUEST,
+  USER_SEARCH_SUCCESS,
+  USER_SEARCH_FAIL,
 } from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -100,6 +103,19 @@ export const userUnfollowReducer = (state = {}, action) => {
     case USER_UNFOLLOW_SUCCESS:
       return { loading: false, success: true };
     case USER_UNFOLLOW_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const userSearchReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case USER_SEARCH_REQUEST:
+      return { loading: true };
+    case USER_SEARCH_SUCCESS:
+      return { loading: false, users: action.payload };
+    case USER_SEARCH_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
