@@ -9,8 +9,6 @@ import Message from '../components/Message';
 const SearchResultsScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
-  console.log(keyword);
-
   const dispatch = useDispatch();
 
   const userSearch = useSelector((state) => state.userSearch);

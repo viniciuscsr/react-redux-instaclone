@@ -45,7 +45,9 @@ const Header = () => {
             </LinkContainer>
           )}
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <SearchBox className='mr-auto ml-auto' history={history} />
+          {userInfo && (
+            <SearchBox className='mr-auto ml-auto' history={history} />
+          )}
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
               {userInfo ? (

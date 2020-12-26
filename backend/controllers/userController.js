@@ -176,8 +176,6 @@ const searchUsers = asyncHandler(async (req, res) => {
       }
     : {};
 
-  console.log(keyword);
-
   const user = await User.find({ ...keyword });
 
   if (user) {

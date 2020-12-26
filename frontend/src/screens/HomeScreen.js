@@ -1,22 +1,29 @@
 import React from 'react';
 import { Jumbotron, Button, Card, CardGroup } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const HomeScreen = () => {
   return (
     <div>
       <Jumbotron>
-        <h1>Hello, world!</h1>
+        <h1>Insta Clone</h1>
         <p>
-          This is a simple hero unit, a simple jumbotron-style component for
-          calling extra attention to featured content or information.
+          InstaClone is a simplified version of Instagram where users can post
+          pictures, leave comments and follow friends.
         </p>
         <p>
-          <Button variant='primary'>Learn more</Button>
+          <LinkContainer to='/register'>
+            <Button variant='primary'>Get Started</Button>
+          </LinkContainer>
         </p>
       </Jumbotron>
       <CardGroup>
         <Card>
-          <Card.Img variant='top' src='holder.js/100px160' />
+          <Card.Img
+            variant='top'
+            src='/images/post_photos.jpg'
+            style={{ maxHeight: '15rem' }}
+          />
           <Card.Body>
             <Card.Title>Post Photos</Card.Title>
             <Card.Text>
@@ -26,14 +33,22 @@ const HomeScreen = () => {
           </Card.Body>
         </Card>
         <Card>
-          <Card.Img variant='top' src='holder.js/100px160' />
+          <Card.Img
+            variant='top'
+            src='/images/leave_comments.jpg'
+            style={{ maxHeight: '15rem' }}
+          />
           <Card.Body>
             <Card.Title>Leave Comments</Card.Title>
             <Card.Text>Leave comments on photos.</Card.Text>
           </Card.Body>
         </Card>
         <Card>
-          <Card.Img variant='top' src='holder.js/100px160' />
+          <Card.Img
+            variant='top'
+            src='/images/follow.jpg'
+            style={{ maxHeight: '15rem' }}
+          />
           <Card.Body>
             <Card.Title>Follow your friends</Card.Title>
             <Card.Text>
