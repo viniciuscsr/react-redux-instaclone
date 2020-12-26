@@ -12,7 +12,7 @@ const createComment = asyncHandler(async (req, res) => {
 
   const newComment = new Comment({
     text,
-    user: { id: req.user.id },
+    user: req.user.id,
     post: req.params.postId,
   });
 
@@ -45,8 +45,7 @@ const createComment = asyncHandler(async (req, res) => {
 
 const getComments = asyncHandler(async (req, res) => {
   const comments = await Comment.find({ post: req.params.postId }).populate(
-    'user',
-    'name'
+    'user'
   );
 
   if (comments) {

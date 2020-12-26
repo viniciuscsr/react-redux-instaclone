@@ -42,13 +42,13 @@ const PostCard = ({
       <Col>
         <div className='container post-container p-3'>
           <div className='p-0 pb-3'>
-            <img
+            {/* <img
               src='https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg'
               className='rounded-circle mr-3'
               height='50px'
               width='50px'
               alt='avatar'
-            />
+            /> */}
             {post.user.name && (
               <>
                 <LinkContainer to={`/user/${post.user._id}`}>

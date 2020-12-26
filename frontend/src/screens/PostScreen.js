@@ -11,6 +11,7 @@ import {
   deleteComment,
 } from '../actions/commentActions';
 import { COMMENT_CREATE_RESET } from '../constants/commentConstants';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const PostScreen = ({ match, history }) => {
   const [text, setText] = useState('');
@@ -98,16 +99,21 @@ const PostScreen = ({ match, history }) => {
                   <>
                     <ul key={comment._id} className='list-unstyled'>
                       <Media as='li'>
-                        <img
+                        {/* <img
                           width={32}
                           height={32}
                           className='rounded-circle ml-1 mr-1 mt-2'
                           src='https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg'
                           alt='Generic placeholder'
-                        />
+                        /> */}
                         <Media.Body className='mt-2'>
-                          {comment.text}
-                          {userInfo._id === comment.user.id && (
+                          <LinkContainer to={`/user/${comment.user._id}`}>
+                            <a href={`/user/${comment.user._id}`}>
+                              {comment.user.name}
+                            </a>
+                          </LinkContainer>
+                          : {comment.text}
+                          {userInfo._id === comment.user._id && (
                             <Button
                               variant='outline-danger'
                               className='btn-sm ml-2'
