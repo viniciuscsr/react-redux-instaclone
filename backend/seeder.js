@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const colors = require('colors');
-const posts = require('./data/posts').default;
+const posts = require('./data/posts');
 const users = require('./data/users');
 const Post = require('./models/postModel');
 const User = require('./models/userModel');
@@ -14,13 +14,22 @@ connectDB();
 const importData = async () => {
   try {
     console.log('start');
-    // await Post.deleteMany();
+    await Post.deleteMany();
     await User.deleteMany();
     console.log('data deleted');
-    await User.insertMany(users);
-    // await Post.insertMany(posts);
+
+    const createdUsers = await User.insertMany(users);
+    const user1 = createdUsers[0]._id;
+
+    const samplePosts = posts.map((post) => {
+      return { ...post, user: user1 };
+      user1.posts.push(post);
+    });
+
+    await Post.insertMany(samplePosts);
 
     console.log('data imported'.green.inverse);
+    process.exit();
   } catch (error) {
     console.error(`${error}.red.inverse`);
     process.exit(1);
