@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col, Button, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -33,37 +33,47 @@ const LoginScreen = ({ location, history }) => {
   return (
     <Container>
       <Row className='justify-content-md-center'>
-        <Col xs={12} md={6}>
-          <h1>Sign In</h1>
+        <Col md={6} lg={4} className='visible-lg'>
+          <Image
+            src='/images/mobile-app-image-login-page.png'
+            id='login-page-image'
+          />
+        </Col>
+        <Col xs={12} md={6} lg={4} className='border p-4' id='login-container'>
+          <Image
+            className='img-fluid mx-auto d-block py-5'
+            src='/images/instaclone-logo-dark.png'
+            style={{ width: '12rem' }}
+          />
           {error && <Message>{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
               <Form.Control
+                style={{ backgroundColor: 'WhiteSmoke' }}
                 type='email'
-                placeholder='Enter your email address'
+                placeholder='Email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group controlId='password'>
-              <Form.Label>Password </Form.Label>
               <Form.Control
+                style={{ backgroundColor: 'WhiteSmoke' }}
                 type='password'
-                placeholder='Enter your password'
+                placeholder='Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}></Form.Control>
             </Form.Group>
-            <Button type='submit' variant='primary'>
+            <Button type='submit' variant='primary' block>
               Sign in
             </Button>
           </Form>
-          <Row className='py-3'>
+          <Row className='py-5'>
             <Col>
-              New User?{' '}
+              Don't have an account?{' '}
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-                Register
+                <strong>Sign Up</strong>
               </Link>
             </Col>
           </Row>

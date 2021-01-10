@@ -2,6 +2,10 @@ main {
   min-height: 80vh;
 }
 
+body {
+  background-color: whitesmoke;
+}
+
 .fa-heart,
 .fa-comments {
   font-size: 1.5em;
@@ -14,4 +18,16 @@ main {
 #post-card {
   margin-left: auto;
   margin-right: auto;
+}
+
+#login-container {
+  background-color: white;
+}
+
+#signup-container {
+  background-color: white;
+}
+
+#login-page-image {
+  height: 35rem;
 }

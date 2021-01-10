@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col, Button, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -40,39 +40,50 @@ const RegisterScreen = ({ location, history }) => {
   return (
     <Container>
       <Row className='justify-content-md-center'>
-        <Col xs={12} md={6}>
-          <h1>Sign In</h1>
+        <Col md={6} lg={4} className='visible-lg'>
+          <Image
+            src='/images/mobile-app-image-login-page.png'
+            id='login-page-image'
+          />
+        </Col>
+        <Col xs={12} md={6} lg={4} className='border p-4' id='signup-container'>
+          <Image
+            className='img-fluid mx-auto d-block py-3'
+            src='/images/instaclone-logo-dark.png'
+            style={{ width: '12rem' }}
+          />
+          <h5 className='text-center my-3 '>Sign Up</h5>
           {message && <Message variant='danger'>{message}</Message>}
           {error && <Message>{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
               <Form.Control
+                style={{ backgroundColor: 'WhiteSmoke' }}
                 type='text'
-                placeholder='Enter your name'
+                placeholder='Name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
               <Form.Control
+                style={{ backgroundColor: 'WhiteSmoke' }}
                 type='email'
-                placeholder='Enter your email address'
+                placeholder='Email address'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group controlId='password'>
-              <Form.Label>Password </Form.Label>
               <Form.Control
+                style={{ backgroundColor: 'WhiteSmoke' }}
                 type='password'
-                placeholder='Enter your password'
+                placeholder='Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group controlId='confirmPassword'>
-              <Form.Label>Confirm Password </Form.Label>
               <Form.Control
+                style={{ backgroundColor: 'WhiteSmoke' }}
                 type='password'
                 placeholder='Confirm password'
                 value={confirmPassword}
@@ -80,15 +91,15 @@ const RegisterScreen = ({ location, history }) => {
                   setConfirmPassword(e.target.value)
                 }></Form.Control>
             </Form.Group>
-            <Button type='submit' variant='primary'>
-              Sign in
+            <Button type='submit' variant='primary' block>
+              Sign up
             </Button>
           </Form>
           <Row className='py-3'>
             <Col>
               Have an account?{' '}
               <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-                Login
+                <strong>Login</strong>
               </Link>
             </Col>
           </Row>
