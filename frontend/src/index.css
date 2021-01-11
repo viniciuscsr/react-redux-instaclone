@@ -11,10 +11,6 @@ body {
   font-size: 1.5em;
 }
 
-#card-username-date {
-  display: inline-block;
-}
-
 #post-card {
   margin-left: auto;
   margin-right: auto;

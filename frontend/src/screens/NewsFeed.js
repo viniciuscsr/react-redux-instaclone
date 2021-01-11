@@ -47,10 +47,10 @@ const NewsFeed = () => {
           </Row>
         </Col>
       ) : (
-        <h1>
-          You don't follow any users yet. Hit the search button to see all
-          users.
-        </h1>
+        <h3>
+          Use the search bar to find users to follow. Hint: Hit the search
+          button to see all users.
+        </h3>
       )}
     </>
   );

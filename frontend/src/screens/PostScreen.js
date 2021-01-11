@@ -89,6 +89,7 @@ const PostScreen = ({ match, history }) => {
             style={{
               border: '1px solid rgba(0,0,0,.125)',
               borderRadius: '.4rem',
+              backgroundColor: 'white',
             }}
             className='mt-1'>
             <h4 className='mt-1'>Comments</h4>
@@ -137,6 +138,7 @@ const PostScreen = ({ match, history }) => {
             style={{
               border: '1px solid rgba(0,0,0,.125)',
               borderRadius: '.4rem',
+              backgroundColor: 'white',
             }}
             className='mt-1'>
             <Form onSubmit={submitHandler}>
