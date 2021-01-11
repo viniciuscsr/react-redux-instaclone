@@ -19,14 +19,14 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+    <header className='white-background'>
+      <Navbar expand='lg' collapseOnSelect>
         <Container>
           {userInfo ? (
             <>
               <LinkContainer to='/newsfeed'>
                 <Navbar.Brand>
-                  <i className='fab fa-instagram'></i> InstaClone
+                  <img src='/images/instaclone-logo-dark.png' />
                 </Navbar.Brand>
               </LinkContainer>
               <Nav>

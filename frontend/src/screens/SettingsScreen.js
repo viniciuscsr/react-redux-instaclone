@@ -55,8 +55,8 @@ const ProfileScreen = ({ history }) => {
       ) : error ? (
         <Message>{error}</Message>
       ) : (
-        <Row>
-          <Col md={12} lg={12}>
+        <Row className='justify-content-md-center'>
+          <Col md={6} lg={6} className='border p-4 white-background'>
             <h2>User Settings</h2>
             <Form onSubmit={submitHandler}>
               <Form.Group controlId='name'>
@@ -97,7 +97,7 @@ const ProfileScreen = ({ history }) => {
                   }></Form.Control>
               </Form.Group>
 
-              <Button type='submit' variant='primary'>
+              <Button type='submit' variant='primary' block>
                 Update
               </Button>
             </Form>

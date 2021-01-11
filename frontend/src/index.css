@@ -16,14 +16,14 @@ body {
   margin-right: auto;
 }
 
-#login-container {
-  background-color: white;
-}
-
-#signup-container {
-  background-color: white;
-}
-
 #login-page-image {
   height: 35rem;
+}
+
+header img {
+  height: 1.8rem;
+}
+
+.white-background {
+  background-color: white;
 }

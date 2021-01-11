@@ -55,7 +55,7 @@ const CreatePostScreen = ({ history }) => {
   return (
     <Container>
       <Row className='justify-content-md-center'>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={6} className='border p-4 white-background'>
           <h1>Create New Post</h1>
           {error && <Message>{error}</Message>}
           {loading && <Loader />}
@@ -90,7 +90,7 @@ const CreatePostScreen = ({ history }) => {
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}></Form.Control>
             </Form.Group>
-            <Button type='submit' variant='primary'>
+            <Button type='submit' variant='primary' block>
               Submit
             </Button>
           </Form>

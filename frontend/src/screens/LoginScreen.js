@@ -39,7 +39,7 @@ const LoginScreen = ({ location, history }) => {
             id='login-page-image'
           />
         </Col>
-        <Col xs={12} md={6} lg={4} className='border p-4' id='login-container'>
+        <Col xs={12} md={6} lg={4} className='border p-4 white-background'>
           <Image
             className='img-fluid mx-auto d-block py-5'
             src='/images/instaclone-logo-dark.png'
