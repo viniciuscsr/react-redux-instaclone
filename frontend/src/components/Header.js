@@ -26,7 +26,7 @@ const Header = () => {
             <>
               <LinkContainer to='/newsfeed'>
                 <Navbar.Brand>
-                  <img src='/images/instaclone-logo-dark.png' />
+                  <img src='/images/instaclone-logo-dark.png' alt='logo' />
                 </Navbar.Brand>
               </LinkContainer>
               <Nav>

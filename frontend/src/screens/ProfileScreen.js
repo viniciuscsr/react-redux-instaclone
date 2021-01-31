@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Card, Button, CardColumns } from 'react-bootstrap';
+import { Row, Col, Card, Button, CardColumns, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -45,64 +45,91 @@ const ProfileScreen = ({ history, match }) => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message>{error}</Message>
-      ) : (
-        <Col sm={12} md={12} lg={12} xl={12}>
-          <Row className='my-2'>
-            <h2 className='mr-2'>{user.name}</h2>
-            {userId !== userInfo._id &&
-              (user.followers && user.followers.includes(userInfo._id) ? (
-                <>
-                  <Button
-                    className='mr-2'
-                    onClick={() => followHandler()}
-                    size='sm'
-                    variant='primary'
-                    disabled>
-                    Following
-                  </Button>
-                  <Button
-                    onClick={() => unfollowHandler()}
-                    size='sm'
-                    variant='primary'>
-                    Unfollow
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  onClick={() => followHandler()}
-                  size='sm'
-                  variant='primary'>
-                  Follow
-                </Button>
-              ))}
-          </Row>
-          <CardColumns>
-            {user.posts &&
-              user.posts.map((post) => (
-                <Card key={post._id} style={{ width: '18rem' }}>
-                  <Card.Img
-                    variant='top'
-                    style={{ maxHeight: '10rem' }}
-                    src={post.image}
-                  />
-                  <Card.Body>
-                    <Card.Title>{post.title}</Card.Title>
-                    <Card.Text>{post.caption}</Card.Text>
-                    <LinkContainer to={`/post/${post._id}`}>
-                      <Button variant='primary'>View Post</Button>
+    <Row className='justify-content-md-center'>
+      <Col md={10}>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message>{error}</Message>
+        ) : (
+          <>
+            <Row className='my-5'>
+              <Col md={4}>
+                <img
+                  src='/images/no-photo.png'
+                  alt={`${user.name}-profile`}
+                  className='rounded-circle border border-primary border-4'
+                  height='150rem'
+                />
+              </Col>
+              <Col md={8}>
+                <Row className='my-3'>
+                  <h2 className='mr-2'>{user.name}</h2>
+                  {userId !== userInfo._id &&
+                    (user.followers && user.followers.includes(userInfo._id) ? (
+                      <>
+                        <Button
+                          className='mr-2 btn btn-sm'
+                          onClick={() => followHandler()}
+                          variant='primary'
+                          size='sm'
+                          disabled>
+                          Following
+                        </Button>
+                        <Button
+                          onClick={() => unfollowHandler()}
+                          variant='primary'
+                          size='sm'>
+                          Unfollow
+                        </Button>
+                      </>
+                    ) : (
+                      <Button
+                        onClick={() => followHandler()}
+                        size='sm'
+                        variant='primary'>
+                        Follow
+                      </Button>
+                    ))}
+                </Row>
+                <Row className='my-3 justify-content-md-left'>
+                  <Col md={3}>
+                    <p className='details-text'>
+                      <strong>{user.posts.length}</strong> posts
+                    </p>
+                  </Col>
+                  <Col md={3}>
+                    <p className='details-text'>
+                      <strong>{user.following.length}</strong> following
+                    </p>
+                  </Col>
+                  <Col md={3}>
+                    <p className='details-text'>
+                      <strong>{user.followers.length}</strong> followers
+                    </p>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <CardColumns>
+              {user.posts &&
+                user.posts.map((post) => (
+                  <Card style={{ width: '18rem' }}>
+                    <LinkContainer key={post._id} to={`/post/${post._id}`}>
+                      <Card.Img
+                        variant='top'
+                        // style={{ maxHeight: '4rem', cursor: 'pointer' }}
+                        src={post.image}
+                        alt={post.title}
+                      />
                     </LinkContainer>
-                  </Card.Body>
-                </Card>
-              ))}
-          </CardColumns>
-        </Col>
-      )}
-    </>
+                  </Card>
+                ))}
+            </CardColumns>
+          </>
+        )}
+      </Col>
+    </Row>
   );
 };
 

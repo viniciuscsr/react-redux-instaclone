@@ -27,3 +27,7 @@ header img {
 .white-background {
   background-color: white;
 }
+
+.details-text {
+  font-size: 1.15rem;
+}

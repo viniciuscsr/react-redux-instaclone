@@ -129,7 +129,7 @@ const PostScreen = ({ match, history }) => {
                 ))}
               </>
             ) : (
-              <p> This photo hasn't received any comments yet</p>
+              <p> This photo hasn't received any comment yet</p>
             )}
           </Col>
         </Row>
