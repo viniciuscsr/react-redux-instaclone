@@ -136,6 +136,9 @@ export const updateUserProfile = (updatedUser) => async (
     const { data } = await axios.put('/api/users/profile', updatedUser, config);
 
     dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
