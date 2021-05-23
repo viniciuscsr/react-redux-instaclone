@@ -20,19 +20,25 @@ const getPosts = asyncHandler(async (req, res) => {
 //@PUBLIC private
 
 const getNewsfeedPosts = asyncHandler(async (req, res) => {
-  const userId = req.user._id;
-
-  const user = await User.findById(userId);
-
   let posts = [];
 
-  for (let i = 0; i < user.following.length; i++) {
-    let postsFromFollowing = await Post.find({
-      user: user.following[i],
-    }).populate('user');
-    for (let i = 0; i < postsFromFollowing.length; i++) {
-      posts.push(postsFromFollowing[i]);
+  if (req.user) {
+    // user is logged in
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
+
+    for (let i = 0; i < user.following.length; i++) {
+      let postsFromFollowing = await Post.find({
+        user: user.following[i],
+      }).populate('user');
+      for (let i = 0; i < postsFromFollowing.length; i++) {
+        posts.push(postsFromFollowing[i]);
+      }
     }
+  } else {
+    // no logged in user
+    posts = await Post.find({});
   }
 
   const sortedPosts = posts.sort(function (a, b) {

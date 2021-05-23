@@ -15,7 +15,7 @@ const {
 } = require('../controllers/postController');
 
 router.route('/').get(getPosts).post(protect, createNewPost);
-router.route('/newsfeed').get(protect, getNewsfeedPosts);
+router.route('/newsfeed').get(getNewsfeedPosts);
 router
   .route('/:postId')
   .get(protect, getPost)
