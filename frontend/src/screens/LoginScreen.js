@@ -77,6 +77,14 @@ const LoginScreen = ({ location, history }) => {
               </Link>
             </Col>
           </Row>
+          <Row>
+            <Col>
+              or{' '}
+              <Link to='/newsfeed'>
+                <strong>Continue as a Guest</strong>
+              </Link>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
