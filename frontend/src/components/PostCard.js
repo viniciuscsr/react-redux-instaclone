@@ -19,7 +19,7 @@ const PostCard = ({
 
   useEffect(() => {
     if (success) {
-      history.goBack();
+      history.push('/newsfeed');
     }
   }, [success, history]);
 
