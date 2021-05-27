@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { protect } = require('../middleware/authMiddleware');
+const { setUserInfo } = require('../middleware/authGuestMiddleware');
 const { postOwnership } = require('../middleware/authorizationMiddleware');
 const {
   getPosts,
@@ -15,7 +16,7 @@ const {
 } = require('../controllers/postController');
 
 router.route('/').get(getPosts).post(protect, createNewPost);
-router.route('/newsfeed').get(getNewsfeedPosts);
+router.route('/newsfeed').get(setUserInfo, getNewsfeedPosts);
 router
   .route('/:postId')
   .get(protect, getPost)

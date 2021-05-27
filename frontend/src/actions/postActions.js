@@ -31,9 +31,12 @@ export const newsfeedPosts = () => async (dispatch, getState) => {
   const config = {
     headers: {
       ContentType: 'application/json',
-      Authorization: `Bearer ${userInfo.token}`,
     },
   };
+
+  if (userInfo) {
+    config.headers['Authorization'] = `Bearer ${userInfo.token}`;
+  }
 
   try {
     dispatch({ type: POST_NEWSFEED_REQUEST });

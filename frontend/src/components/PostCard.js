@@ -59,7 +59,7 @@ const PostCard = ({
                 </a>
               </LinkContainer>
             )}
-            {postSettings && userInfo._id === post.user._id && (
+            {postSettings && userInfo && userInfo._id === post.user._id && (
               <Dropdown className='ml-auto'>
                 <Dropdown.Toggle
                   variant='success'
@@ -86,23 +86,29 @@ const PostCard = ({
             />
             <Card.Body className='pb-0'>
               <Row>
-                {post.likes && post.likes.includes(userInfo._id) ? (
-                  <Button
-                    style={{ border: '0' }}
-                    variant='outline-danger'
-                    onClick={() => unlikePostHandler()}>
-                    <i className='fas fa-heart'></i>
-                  </Button>
-                ) : (
-                  <Button
-                    style={{ border: '0' }}
-                    variant='outline-danger'
-                    onClick={() => likePostHandler()}>
-                    <i className='far fa-heart'></i>
-                  </Button>
+                {userInfo && (
+                  <>
+                    {post.likes &&
+                    userInfo &&
+                    post.likes.includes(userInfo._id) ? (
+                      <Button
+                        style={{ border: '0' }}
+                        variant='outline-danger'
+                        onClick={() => unlikePostHandler()}>
+                        <i className='fas fa-heart'></i>
+                      </Button>
+                    ) : (
+                      <Button
+                        style={{ border: '0' }}
+                        variant='outline-danger'
+                        onClick={() => likePostHandler()}>
+                        <i className='far fa-heart'></i>
+                      </Button>
+                    )}
+                  </>
                 )}
 
-                <Card.Text className='mt-1'>
+                <Card.Text className='mt-1 ml-3'>
                   <strong className='py-1'>{post.title}</strong>
                 </Card.Text>
               </Row>
