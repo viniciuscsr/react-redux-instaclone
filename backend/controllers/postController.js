@@ -22,8 +22,6 @@ const getPosts = asyncHandler(async (req, res) => {
 const getNewsfeedPosts = asyncHandler(async (req, res) => {
   let posts = [];
 
-  console.log(req.user);
-
   if (req.user) {
     // user is logged in
     const userId = req.user._id;
@@ -40,7 +38,7 @@ const getNewsfeedPosts = asyncHandler(async (req, res) => {
     }
   } else {
     // no logged in user
-    posts = await Post.find({});
+    posts = await Post.find({}).populate('user');
   }
 
   const sortedPosts = posts.sort(function (a, b) {
