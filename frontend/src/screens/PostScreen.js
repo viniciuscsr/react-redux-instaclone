@@ -49,10 +49,23 @@ const PostScreen = ({ match, history }) => {
   const { success: unlikeSuccess } = postUnlike;
 
   useEffect(() => {
-    dispatch({ type: COMMENT_CREATE_RESET });
-    dispatch(getPostDetails(postId));
-    dispatch(listCommentsByPost(postId));
-  }, [dispatch, comment, success, postId, likeSuccess, unlikeSuccess]);
+    if (!userInfo) {
+      history.push('/login');
+    } else {
+      dispatch({ type: COMMENT_CREATE_RESET });
+      dispatch(getPostDetails(postId));
+      dispatch(listCommentsByPost(postId));
+    }
+  }, [
+    dispatch,
+    comment,
+    success,
+    postId,
+    likeSuccess,
+    unlikeSuccess,
+    userInfo,
+    history,
+  ]);
 
   const submitHandler = (e) => {
     e.preventDefault();
