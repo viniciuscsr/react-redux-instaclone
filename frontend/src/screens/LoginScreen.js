@@ -68,12 +68,22 @@ const LoginScreen = ({ location, history }) => {
               Sign in
             </Button>
           </Form>
-          <Row className='py-5'>
+          <Row className='py-4'>
             <Col>
               Don't have an account?{' '}
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : '/register'}>
                 <strong>Sign Up</strong>
+              </Link>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <p className='text-center'>OR </p>
+              <Link to='/newsfeed'>
+                <Button variant='secondary' block>
+                  Continue as a Guest
+                </Button>
               </Link>
             </Col>
           </Row>
