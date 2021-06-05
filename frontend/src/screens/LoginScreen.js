@@ -68,7 +68,7 @@ const LoginScreen = ({ location, history }) => {
               Sign in
             </Button>
           </Form>
-          <Row className='py-5'>
+          <Row className='py-4'>
             <Col>
               Don't have an account?{' '}
               <Link
@@ -79,9 +79,11 @@ const LoginScreen = ({ location, history }) => {
           </Row>
           <Row>
             <Col>
-              or{' '}
+              <p className='text-center'>OR </p>
               <Link to='/newsfeed'>
-                <strong>Continue as a Guest</strong>
+                <Button variant='secondary' block>
+                  Continue as a Guest
+                </Button>
               </Link>
             </Col>
           </Row>

@@ -105,9 +105,11 @@ const RegisterScreen = ({ location, history }) => {
           </Row>
           <Row>
             <Col>
-              or{' '}
+              <p className='text-center'>OR </p>
               <Link to='/newsfeed'>
-                <strong>Continue as a Guest</strong>
+                <Button variant='secondary' block>
+                  Continue as a Guest
+                </Button>
               </Link>
             </Col>
           </Row>
